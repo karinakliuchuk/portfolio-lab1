@@ -442,14 +442,14 @@ button:active {
     bottom: 20px;
     right: 20px;
     width: 45px;
-    height: 45px;
+    height: 44px;
     border-radius: 50%;
     background-color: #142B51;
     color: #fff;
-    font-size: 24PX;
+    font-size: 23PX;
     font-weight: bold;
     text-align: center;
-    line-height: 45px;
+    line-height: 44px;
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     opacity: 0.7;
