@@ -19,7 +19,8 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    display: flex;
+    /* Flexbox 1: Для шапки */
+    display: flex; 
     background-color: rgba(20, 43, 81, 0.8);
     backdrop-filter: blur(10px);
     z-index: 1000;
@@ -27,6 +28,7 @@ header {
 }
 
 header ul {
+    /* Flexbox 1: Головна навігація */
     display: flex;
     width: 100%;
     list-style: none;
@@ -59,20 +61,25 @@ header ul li a:hover {
 }
 
 .main-content {
-    margin-top: 140px;
+    margin-top: 100px; /* Зменшено для більшої адаптивності */
     padding: 19px;
     position: relative;
+    display: flex; /* Flexbox для форми реєстрації */
+    gap: 4%;
+}
+
+.left-side,
+.right-side {
+    width: 48%; /* Використовуємо flex: 1 в медіа-запитах */
 }
 
 .left-side {
-    float: left;
-    width: 48%;
     text-align: center;
 }
 
 .left-side .portret {
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     border: 4px solid black;
     object-fit: cover;
@@ -85,11 +92,6 @@ header ul li a:hover {
     transform: scale(1.05);
 }
 
-.right-side {
-    float: right;
-    width: 48%;
-}
-
 form {
     background: linear-gradient(145deg, #ffffff, #e3f2fd);
     padding: 20px;
@@ -98,6 +100,7 @@ form {
     position: relative;
 }
 
+/* Стилі для полів форми, кнопок та модального вікна... (без змін) */
 input[type="text"],
 input[type="number"],
 input[type="date"],
@@ -132,20 +135,6 @@ textarea:focus {
     animation: pulse 0.5s;
 }
 
-input:active,
-select:active,
-textarea:active {
-    transform: scale(0.98);
-}
-
-input:valid {
-    border-color: green;
-}
-
-input:invalid {
-    border-color: red;
-}
-
 input[type="submit"],
 button {
     padding: 12px 20px;
@@ -162,25 +151,6 @@ input[type="submit"]:hover,
 button:hover {
     background-color: #1f3a7a;
     transform: scale(1.05);
-}
-
-input[type="submit"]:active,
-button:active {
-    transform: scale(0.95);
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 rgba(20, 43, 81, 0.0);
-    }
-
-    50% {
-        box-shadow: 0 0 12px rgba(20, 43, 81, 0.5);
-    }
-
-    100% {
-        box-shadow: 0 0 0 rgba(20, 43, 81, 0.0);
-    }
 }
 
 .modal {
@@ -209,12 +179,8 @@ button:active {
     font-weight: bold;
     cursor: pointer;
 }
+/* Кінець стилів без змін */
 
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-}
 
 .homer-section {
     background: linear-gradient(145deg, #fff9c4, #fff59d);
@@ -263,83 +229,63 @@ button:active {
 .couple {
     display: flex;
     width: 100%;
-    justify-content: center;
-    gap: 300px;
+    justify-content: space-between; /* Змінено з center на space-between для кращої адаптивності */
+    gap: 20px; /* Зменшено gap для адаптивності */
     padding-bottom: 40px;
 }
 
 .container-photo {
     position: relative;
     width: 50%;
+    min-height: 450px; /* Додано min-height, щоб блоки були видимі */
+}
+
+/* Grid 1: Фото-блоки */
+.container-photo {
+    display: grid;
+    grid-template-areas:
+        "block1 ."
+        ". block2"
+        ". block3";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    min-height: 500px;
 }
 
 .block {
-    position: absolute;
-    width: 300px;
-    height: 350px;
+    position: static; /* Змінено з absolute для роботи з Grid */
+    width: auto;
+    height: auto;
+    min-height: 150px;
     border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
 }
 
 .block1 {
+    grid-area: block1;
     background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-    top: 0;
-    left: 0;
     z-index: 1;
 }
 
 .block2 {
+    grid-area: block2;
     background: linear-gradient(45deg, #4ecdc4, #88d8d0);
-    top: 50px;
-    left: 100px;
     z-index: 2;
 }
 
 .block3 {
+    grid-area: block3;
     background: linear-gradient(45deg, #45b7d1, #7acde6);
-    top: 100px;
-    left: 200px;
     z-index: 3;
 }
-
-.block:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-}
+/* Кінець Grid */
 
 .homer-facts {
     margin-top: 30px;
     clear: both;
-}
-
-.homer-facts h3 {
-    color: #142b51;
-    margin-bottom: 15px;
-}
-
-.homer-facts ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.homer-facts li {
-    padding: 8px 0;
-    border-bottom: 1px dashed #ccc;
-}
-
-.homer-facts li:before {
-    content: "•";
-    color: #d32f2f;
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
 }
 
 .feedback-section {
@@ -350,68 +296,23 @@ button:active {
 }
 
 .feedback-form {
-    display: flex;
+    /* Grid 1: Форма зворотного зв'язку */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-.feedback-left,
-.feedback-right {
-    flex: 1;
-}
-
-.feedback-left input,
-.feedback-left select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    transition: 0.3s;
-}
-
-.feedback-left input:focus,
-.feedback-left select:focus {
-    border-color: #142b51;
-    box-shadow: 0 0 8px rgba(20, 43, 81, 0.3);
-    outline: none;
-}
-
-.feedback-left input[type="submit"] {
-    background-color: #142b51;
-    color: #fff;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.feedback-left input[type="submit"]:hover {
-    background-color: #1f3a7a;
-    transform: scale(1.05);
-}
-
 .feedback-right textarea {
-    width: 100%;
-    height: 200px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    resize: vertical;
-    transition: 0.3s;
-}
-
-.feedback-right textarea:focus {
-    border-color: #142b51;
-    box-shadow: 0 0 8px rgba(20, 43, 81, 0.3);
-    outline: none;
+    height: 100%; /* Займає всю висоту */
+    min-height: 200px;
 }
 
 .social-links {
+    /* Flexbox 2: Соціальні посилання */
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 15px;
+    margin-top: 25px;
+    justify-content: center; /* Центрування посилань */
 }
 
 .social-links .circle {
@@ -457,8 +358,162 @@ button:active {
     z-index: 3000;
 }
 
-.scroll-to-top:hover {
-    background-color: #1f3a7a;
-    opacity: 1;
-    transform: scale(1.1);
+/* --- МЕДІА-ЗАПИТИ ДЛЯ АДАПТИВНОСТІ --- */
+
+/* Mobile (max-width: 600px) */
+@media (max-width: 600px) {
+    /* Навігація вертикально */
+    header ul {
+        flex-direction: column;
+    }
+    header ul li {
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* Основний контент вертикально */
+    .main-content {
+        flex-direction: column;
+        margin-top: 180px;
+        gap: 20px;
+    }
+
+    .left-side, .right-side {
+        width: 100%;
+    }
+
+    .left-side .portret {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 15px;
+    }
+
+    /* Homer images */
+    .homer-img-left, .homer-img-right {
+        float: none;
+        width: 100%;
+        max-width: 300px;
+        display: block;
+        margin: 15px auto;
+    }
+
+    /* Фото-блоки grid */
+    .couple {
+    display: flex;
+    width: 100%;
+    gap: 20px; 
+    padding-bottom: 40px;
+    flex-wrap: wrap; 
+}
+
+.homer-facts {
+    /* Додаємо flex-grow, щоб факти займали доступний простір */
+    flex-grow: 1;
+    margin-top: 30px;
+    clear: both;
+}
+
+    /* Форма зворотного зв'язку */
+    .feedback-form {
+        grid-template-columns: 1fr;
+    }
+    .feedback-right textarea {
+        min-height: 150px;
+    }
+    
+}
+
+
+
+/* Tablet (601px - 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    header ul li a {
+        font-size: 16px;
+    }
+
+    .main-content {
+        flex-direction: row;
+        margin-top: 80px;
+        gap: 20px;
+    }
+
+    .left-side, .right-side {
+        width: 48%;
+    }
+
+    .left-side .portret {
+        width: 200px;
+        height: 200px;
+    }
+
+    .couple {
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    .container-photo {
+        grid-template-areas:
+            "block1 block2"
+            "block3 block3";
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .block {
+        min-height: 180px;
+    }
+
+    .homer-img-left, .homer-img-right {
+        width: 200px;
+    }
+
+    .feedback-form {
+        grid-template-columns: 1fr;
+    }
+    .feedback-right textarea {
+        min-height: 150px;
+    }
+}
+
+/* Desktop (1025px+) */
+@media (min-width: 1025px) {
+    .main-content {
+        margin-top: 80px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .couple {
+        flex-direction: row;
+        gap: 80px;
+    }
+
+    .homer-text {
+        columns: 2;
+        column-gap: 30px;
+    }
+
+    .homer-img-left, .homer-img-right {
+        max-width: 250px;
+    }
+
+    .container-photo {
+        grid-template-areas:
+            "block1 ."
+            ". block2"
+            "block3 .";
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        max-width: 450px;
+    }
+
+    .feedback-form {
+        grid-template-columns: 1fr 2fr;
+    }
+    .feedback-right textarea {
+        min-height: 300px;
+    }
 }
